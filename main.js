@@ -1,13 +1,14 @@
-//Create our 'main' state that will contain the game
+//Creat our 'main' state that will contain the game
 var mainState = {
 	preload: function() {
 		//This function will be executed at the beginning
-		//That's where we load the images and sound.
+		//That's where we load the images and sound
 		
 		//Load the bird sprite
 		game.load.image('bird', 'assets/bird.png');
 		game.load.image('pipe', 'assets/pipe.png');
 	},
+	
 	create: function() {
 		//This function is called after the preload function
 		//Here we setup the game, display sprites, etc.
@@ -25,28 +26,28 @@ var mainState = {
 		//Needed for: movement, gravity, collisions, etc.
 		game.physics.arcade.enable(this.bird);
 		
-		//Add gravity to the bird  to make it fall
+		//Add gravity to the bird to make it fall
 		this.bird.body.gravity.y = 1000;
 		
 		//Call 'jump' function when the spacebar is pressed
 		var spaceBar = game.input.keyboard.addKey(
-												  Phaser.Keyboard.SPACEBAR);
+						Phaser.Keyboard.SPACEBAR);
 		spaceBar.onDown.add(this.jump, this);
 		
 		//Create an empty group
 		this.pipes = game.add.group();
 		
 		//Timer for pipes
-		this.timer = game.time.events.loop(1500, this.addRowOfpipes, this);
+		this.timer = game.time.events.loop(1500, this.addRowOfPipes, this);
 	},
-
+	
 	update: function() {
 		//This function is called 60 times per second
-		//It contains the game's logic
+		//It contains the games logic
 		
-		//Call the 'restartGame'  function
-		if(this.bird.y <0 || this.bird.y > 490)
-		this.restartGame();
+		//Call the 'restartGame' function
+		if (this.bird.y <0 || this.bird.y > 490)
+			this.restartGame();
 	},
 	
 	jump: function() {
@@ -57,7 +58,7 @@ var mainState = {
 	//Restart the game
 	restartGame: function() {
 		//Start the 'main' state, which restarts the game
-		game.state.start('main');
+	game.state.start('main');
 	},
 	
 	//Add a pipe
@@ -74,7 +75,7 @@ var mainState = {
 		//Add velocity to the pipe to make it move left
 		pipe.body.velocity.x = -200;
 		
-		//Automatically kill pipe when it is no longer visible
+		//Automatically kill pipe when it is not longer visible
 		pipe.checkWorldBounds = true;
 		pipe.outOfBoundsKill = true;
 	},
@@ -86,17 +87,17 @@ var mainState = {
 		var hole = Math.floor(Math.random() * 5) + 1;
 		
 		//Add 6 pipes
-		for (var i = 0; < 8; i++)
-		if(i != hole && i != hole +1)
-		this.addOnePipe(400, i * 60 + 10)
+		for (var i = 0; i < 8; i++)
+			if (i != hole && i != hole +1)
+				this.addOnePipe(400, i * 60 + 10);
 	},
 };
+
 //Initialise Phaser, and create a 400px x 490px game
 var game = new Phaser.Game(400, 490);
 
-//And the 'mainState' and call it 'main'
+//Add the 'mainState' and call it 'main'
 game.state.add('main', mainState);
 
 //Start the state to actually start the game
-
 game.state.start('main');
