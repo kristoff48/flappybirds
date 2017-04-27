@@ -39,6 +39,7 @@ var mainState = {
 		//Timer for pipes
 		this.timer = game.time.events.loop(1500, this.addRowOfpipes, this);
 	},
+
 	update: function() {
 		//This function is called 60 times per second
 		//It contains the game's logic
@@ -48,7 +49,7 @@ var mainState = {
 		this.restartGame();
 	},
 	
-	jump:function() {
+	jump: function() {
 		//Add a vertical velocity to the bird
 		this.bird.body.velocity.y = -350;
 	},
