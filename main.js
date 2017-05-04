@@ -8,6 +8,7 @@ var mainState = {
 		game.load.image('bird', 'assets/bird.png');
 		game.load.image('pipe', 'assets/pipe.png');
 		game.load.audio('jump', 'assets/jump.wav');
+		game.load.image('background', 'assests/background.png')
 	},
 	
 	create: function() {
@@ -51,6 +52,11 @@ var mainState = {
 		
 		//Add the sound to the game
 		this.jumpSound = game.add.audio('jump');
+		
+		//trying add background
+		var s = game.add.sprite(80, 0, 'background');
+		
+		s.rotation 0.14;
 	},
 	
 	update: function() {
