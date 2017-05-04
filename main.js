@@ -62,7 +62,7 @@ var mainState = {
 			this.restartGame();
 		
 		//calls the restartGame function each time the bird dies
-		game.physics.arcade.overlap(this.bird, this.pipes, this.hitPipe,null, this);
+		game.physics.arcade.overlap(this.bird, this.pipes, this.hitPipe, null, this);
 		//changed from this.restartGame to this.hitPipe
 		
 		// Slowly rotate the bird downward, up to a certain point
