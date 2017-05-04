@@ -52,11 +52,6 @@ var mainState = {
 		
 		//Add the sound to the game
 		this.jumpSound = game.add.audio('jump');
-		
-		//trying add background
-		var s = game.add.sprite(80, 0, 'background');
-		
-		s.rotation 0.14;
 	},
 	
 	update: function() {
