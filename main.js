@@ -7,6 +7,7 @@ var mainState = {
 		//Load the bird sprite
 		game.load.image('bird', 'assets/bird.png');
 		game.load.image('pipe', 'assets/pipe.png');
+		game.load.audio('jump', 'assets/jump.wav');
 	},
 	
 	create: function() {
@@ -29,6 +30,9 @@ var mainState = {
 		//Add gravity to the bird to make it fall
 		this.bird.body.gravity.y = 1000;
 		
+		// New anchor position
+		this.bird.anchor.setTo(-0.2, 0.5);
+		
 		//Call 'jump' function when the spacebar is pressed
 		var spaceBar = game.input.keyboard.addKey(
 						Phaser.Keyboard.SPACEBAR);
@@ -44,6 +48,9 @@ var mainState = {
 		this.score = 0;
 		this.labelScore = game.add.text(20, 20, "0",
 						{ font: "30px Arial", fill: "#ffffff" });
+		
+		//Add the sound to the game
+		this.jumpSound = game.add.audio('jump');
 	},
 	
 	update: function() {
@@ -55,12 +62,45 @@ var mainState = {
 			this.restartGame();
 		
 		//calls the restartGame function each time the bird dies
-		game.physics.arcade.overlap(this.bird, this.pipes, this.restartGame,null, this);
+		game.physics.arcade.overlap(this.bird, this.pipes, this.hitPipe,null, this);
+		//changed from this.restartGame to this.hitPipe
+		
+		// Slowly rotate the bird downward, up to a certain point
+		if (this.bird.angle < 20)
+			this.bird.angle += 1;
 	},
 	
 	jump: function() {
+		//Stops the bird being controlled when it is dead. dead means dead
+		if (this.bird.alive == false)
+			return;
+		
 		//Add a vertical velocity to the bird
 		this.bird.body.velocity.y = -350;
+		
+		//Simplified code for upward flying animation
+		game.add.tween(this.bird).to({angle: -20}, 100).start();
+		
+		//Play sound
+		this.jumpSound.play();
+	},
+	
+	hitPipe: function() {
+		//If the bird has already hit a pipe, do nothing.
+		//It means the bird is already falling of the screen.
+		if (this.bird.alive == false)
+			return;
+		
+		//Set the alive property of the bird to false
+		this.bird.alive = false;
+		
+		//Prevent new pipes from appearing
+		game.time.events.remove(this.timer);
+		
+		//Go through all the pipes and stop their movement
+		this.pipes.forEach(function(p){
+			p.body velocity.x = 0;
+		}, this);
 	},
 	
 	//Restart the game
