@@ -141,7 +141,7 @@ var mainState = {
 				this.addOnePipe(400, i * 60 + 10);
 		
 		//Increases score as new pipes are created
-		this.score += 1;
+		this.score += 51;
 		this.labelScore.text = this.score;
 	},
 };
