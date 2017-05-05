@@ -46,7 +46,7 @@ var mainState = {
 		this.timer = game.time.events.loop(1500, this.addRowOfPipes, this);
 		
 		//Score
-		this.score = 0;
+		this.score = -1;
 		this.labelScore = game.add.text(20, 20, "0",
 						{ font: "30px Arial", fill: "#ffffff" });
 		
@@ -141,7 +141,7 @@ var mainState = {
 				this.addOnePipe(400, i * 60 + 10);
 		
 		//Increases score as new pipes are created
-		this.score += 51;
+		this.score += 1;
 		this.labelScore.text = this.score;
 	},
 };
